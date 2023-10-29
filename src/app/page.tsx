@@ -1,3 +1,5 @@
-export default function Home() {
-  return <h1>Hello World</h1>;
+export default async function Home() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/products`);
+  const data = await response.json();
+  return <h1>{data.name}</h1>;
 }
