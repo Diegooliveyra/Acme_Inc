@@ -10,8 +10,11 @@
   },
   "dependencies": {
     "next": "14.0.0",
+    "plaiceholder": "^3.0.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-lorem-ipsum": "^1.4.10",
+    "sharp": "^0.32.6",
     "styled-components": "^6.1.0"
   },
   "devDependencies": {
