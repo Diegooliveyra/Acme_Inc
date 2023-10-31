@@ -44,7 +44,7 @@ export async function GET() {
     );
     return images.map((img: any, index: number) => ({
       id: index + 1,
-      image: img.download_url,
+      url_image: img.download_url,
       description,
       title: randomTitles[index],
       value: generateProductsValues(randomTitles[index], description).toFixed(
