@@ -3,8 +3,7 @@
 
 import Image from 'next/image';
 import * as S from './styles';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import PlaceholderImage from '../../../public/assets/images/placeholder.jpg';
+
 import { moneyFormat } from '@/utils/moneyFormat';
 import { ReactSVG } from 'react-svg';
 import { useState } from 'react';
@@ -44,15 +43,7 @@ const CardProduct = ({
             wrapper="span"
           />
         </S.FavoriteButton>
-        <LazyLoadImage
-          src={url_image}
-          width={200}
-          height={200}
-          alt="Image Alt"
-          placeholderSrc={'/assets/images/placeholder.jpg'}
-          effect="black-and-white"
-          style={{ objectFit: 'cover' }}
-        />
+        <Image src={url_image} alt={title} fill objectFit="cover" />
       </S.CardImage>
       <S.CardInfo>
         <p>{title}</p>

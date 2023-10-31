@@ -5,10 +5,22 @@ import theme from '@/styles/theme';
 
 export const Container = styled.div`
   ${() => css`
-    padding: ${theme.spacings.xsmall};
+    padding: ${theme.spacings.xxsmall};
     max-width: ${theme.grid.container};
     margin: 0 auto;
     cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: ${theme.border.radius};
+    background-color: ${theme.colors.black.light};
+
+    &:hover {
+      transition: all 0.6s ease;
+      border-color: ${theme.colors.purple.light};
+      img {
+        transition: all 0.6s ease;
+        filter: grayscale();
+      }
+    }
   `}
 `;
 
@@ -16,12 +28,21 @@ export const CardImage = styled.div`
   ${() => css`
     display: flex;
     justify-content: center;
-    width: 202px;
-    height: 202px;
+    width: 252px;
+    height: 252px;
     border: 1px solid ${theme.colors.gray.medium};
     border-radius: ${theme.border.radius};
     overflow: hidden;
     position: relative;
+
+    /* &:hover {
+      transition: all 0.6s ease;
+      border-color: ${theme.colors.purple.light};
+      img {
+        transition: all 0.6s ease;
+        filter: grayscale();
+      }
+    } */
   `}
 `;
 
@@ -34,6 +55,7 @@ export const FavoriteButton = styled.div<FavoriteButtonProps>`
     position: absolute;
     right: ${theme.spacings.xsmall};
     top: ${theme.spacings.xsmall};
+    z-index: ${theme.layers.base};
 
     svg path {
       fill: ${isFavorite ? theme.colors.purple.light : theme.colors.white};
