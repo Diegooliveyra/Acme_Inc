@@ -1,26 +1,36 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
 import CardProduct, { CardProps } from '@/components/CardProduct';
-import * as S from './styles';
+import { IProductoDTO } from '@/types/product';
 import { useRouter } from 'next/navigation';
+import * as S from './styles';
+import { useContext, useEffect } from 'react';
+import { ProductsContext } from '@/contexts/products';
 
 type HomeTemplateProps = {
-  data: CardProps[];
+  products: IProductoDTO[];
 };
 
-const HomeTemplate = ({ data }: HomeTemplateProps) => {
+const HomeTemplate = ({ products }: HomeTemplateProps) => {
+  const { setProducts, contextProducts } = useContext(ProductsContext);
+
+  useEffect(() => {
+    if (!contextProducts?.length) setProducts(products);
+  }, [products]);
+
   const router = useRouter();
   return (
     <S.Container>
       <S.CardWrapper>
-        {data.map((e) => (
+        {products?.map((product) => (
           <CardProduct
-            key={e.title}
-            title={e.title}
-            url_image={e.url_image}
-            value={e.value}
+            key={product.title}
+            title={product.title}
+            url_image={product.url_image}
+            value={product.value}
             handleFavorite={(v) => console.log(v)}
-            onClick={() => router.push(`/produto/${e.id}`)}
+            onClick={() => router.push(`/produto/${product.id}`)}
           />
         ))}
       </S.CardWrapper>
