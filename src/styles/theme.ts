@@ -1,6 +1,6 @@
 export default {
   grid: {
-    container: '136.6rem',
+    container: '150rem',
     gutter: '1.6rem',
   },
 
@@ -43,7 +43,7 @@ export default {
       dark: '#2A2A2A',
     },
 
-    white: '#FFFFFF',
+    white: '#ede9f0',
   },
 
   spacings: {
