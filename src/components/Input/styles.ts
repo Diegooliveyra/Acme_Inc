@@ -108,14 +108,10 @@ export const WrapperLeft = styled.div`
 
   display: flex;
   align-items: center;
-
-  input[type='number'] {
-    -moz-appearance: textfield; /* Firefox */
-  }
 `;
 
 export const Wrapper = styled.div<WrapperProps>`
-  ${({ theme, isFill, isFocus, isIconLeft, state, disabled }) => css`
+  ${({ theme, isFill, isFocus, isIconLeft, disabled }) => css`
     width: 100%;
     position: relative;
 
