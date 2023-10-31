@@ -1,19 +1,23 @@
-import { description } from '@/utils/description';
+import { generateRandomNumber } from '@/utils/generateRandomNumber';
 import { permittedAdjectives, permittedVerbs } from '@/utils/words';
+import { loremIpsum } from 'react-lorem-ipsum';
 
 export async function GET() {
-  const generateRandomTitles = (arr1: string[], arr2: string[]): string[] => {
+  const generateRandomTitles = (
+    array1: string[],
+    array2: string[]
+  ): string[] => {
     const result: string[] = [];
 
-    while (arr1?.length > 0 || arr2?.length > 0) {
-      const randomIndex1 = Math.floor(Math.random() * arr1.length);
-      const randomIndex2 = Math.floor(Math.random() * arr2.length);
+    while (array1?.length > 0 || array2?.length > 0) {
+      const randomIndex1 = Math.floor(Math.random() * array1.length);
+      const randomIndex2 = Math.floor(Math.random() * array2.length);
 
-      if (arr1[randomIndex1] && arr2[randomIndex2]) {
-        result.push(arr1[randomIndex1] + ' ' + arr2[randomIndex2]);
+      if (array1[randomIndex1] && array2[randomIndex2]) {
+        result.push(array1[randomIndex1] + ' ' + array2[randomIndex2]);
       }
-      arr1.splice(randomIndex1, 1);
-      arr2.splice(randomIndex2, 1);
+      array1.splice(randomIndex1, 1);
+      array2.splice(randomIndex2, 1);
     }
     return result;
   };
@@ -26,19 +30,29 @@ export async function GET() {
 
   const generateJson = async () => {
     const products = [];
-    const randomTitles = await generateRandomTitles(
+
+    const randomTitles = generateRandomTitles(
       permittedVerbs.split(','),
       permittedAdjectives.split(',')
     );
 
-    for (let i = 0; i < 50; i++) {
+    for (let index = 0; index < 50; index++) {
+      const description = loremIpsum({
+        p: 1,
+        avgWordsPerSentence: generateRandomNumber(10, 8),
+        avgSentencesPerParagraph: generateRandomNumber(15, 10),
+      });
       products.push({
-        id: i + 1,
-        url_image: `https://picsum.photos/id/${i}/600/600`,
+        id: index + 1,
+        url_image: `https://picsum.photos/id/${index}/600/600`,
         description,
-        title: randomTitles[i],
+
+        title: randomTitles[index],
         value: Number(
-          generateProductsValues(randomTitles[i], description).toFixed(2)
+          generateProductsValues(
+            randomTitles[index],
+            description.join()
+          ).toFixed(2)
         ),
       });
     }
