@@ -2,12 +2,20 @@
 
 import { ReactSVG } from 'react-svg';
 import * as S from './styles';
+import { useRouter, usePathname } from 'next/navigation';
 
 const Header = () => {
+  const router = useRouter();
+  const pathName = usePathname();
+
   return (
     <S.HeaderContainer>
       <S.HeaderContent>
-        <S.Title>
+        <S.Title
+          onClick={() => {
+            if (pathName !== '/') router.back();
+          }}
+        >
           <span>Acme</span> Inc
         </S.Title>
 

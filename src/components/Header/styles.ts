@@ -13,6 +13,7 @@ export const HeaderContainer = styled.header`
 export const Title = styled.h1`
   ${() => css`
     font-size: ${theme.font.sizes.h1};
+    cursor: pointer;
 
     span {
       color: ${theme.colors?.purple.light};
