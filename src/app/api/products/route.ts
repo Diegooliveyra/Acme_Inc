@@ -2,18 +2,6 @@ import { description } from '@/utils/description';
 import { permittedAdjectives, permittedVerbs } from '@/utils/words';
 
 export async function GET() {
-  const getImagesPicSum = async () => {
-    const randomNumber = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
-
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_IMAGES_API}?page=${randomNumber}&limit=50&width=300`,
-      {
-        cache: 'no-store',
-      }
-    );
-    return response.json();
-  };
-
   const generateRandomTitles = (arr1: string[], arr2: string[]): string[] => {
     const result: string[] = [];
 
@@ -37,20 +25,25 @@ export async function GET() {
   };
 
   const generateJson = async () => {
-    const images = await getImagesPicSum();
+    const products = [];
     const randomTitles = await generateRandomTitles(
       permittedVerbs.split(','),
       permittedAdjectives.split(',')
     );
-    return images.map((img: any, index: number) => ({
-      id: index + 1,
-      url_image: img.download_url,
-      description,
-      title: randomTitles[index],
-      value: generateProductsValues(randomTitles[index], description).toFixed(
-        2
-      ),
-    }));
+
+    for (let i = 0; i < 50; i++) {
+      products.push({
+        id: i + 1,
+        url_image: `https://picsum.photos/id/${i}/600/600`,
+        description,
+        title: randomTitles[i],
+        value: Number(
+          generateProductsValues(randomTitles[i], description).toFixed(2)
+        ),
+      });
+    }
+
+    return products.sort((a, b) => a.title.length - b.title?.length);
   };
 
   return Response.json(await generateJson());
