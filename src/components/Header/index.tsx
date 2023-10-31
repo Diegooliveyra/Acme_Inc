@@ -20,7 +20,7 @@ const Header = () => {
         </S.Title>
 
         <S.HeaderActions>
-          <S.HeaderIcon>
+          <S.HeaderIcon title="Favoritos">
             <ReactSVG
               src={'/assets/icons/heart.svg'}
               role={'Icon'}
@@ -28,7 +28,7 @@ const Header = () => {
             />
           </S.HeaderIcon>
 
-          <S.HeaderIcon>
+          <S.HeaderIcon title="Carrinho">
             <ReactSVG
               src={'/assets/icons/cart.svg'}
               role={'Icon'}
@@ -36,7 +36,7 @@ const Header = () => {
             />
           </S.HeaderIcon>
 
-          <S.HeaderIcon>
+          <S.HeaderIcon title="Login">
             <ReactSVG
               src={'/assets/icons/user.svg'}
               role={'Icon'}
