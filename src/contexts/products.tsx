@@ -1,11 +1,11 @@
 'use client';
 
-import { IProductoDTO } from '@/types/product';
+import { IProducto, IProductoDTO } from '@/types/product';
 import { ReactNode, createContext, useState } from 'react';
 
 interface IProductsContext {
   contextProducts: IProductoDTO[];
-  setProducts: React.Dispatch<React.SetStateAction<IProductoDTO[]>>;
+  setProducts: React.Dispatch<React.SetStateAction<IProducto[]>>;
 }
 
 export const ProductsContext = createContext<IProductsContext>(
@@ -13,7 +13,7 @@ export const ProductsContext = createContext<IProductsContext>(
 );
 
 const ProductsProvider = ({ children }: { children: ReactNode }) => {
-  const [contextProducts, setProducts] = useState<IProductoDTO[]>([]);
+  const [contextProducts, setProducts] = useState<IProducto[]>([]);
 
   return (
     <ProductsContext.Provider

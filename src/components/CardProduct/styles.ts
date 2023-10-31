@@ -34,15 +34,6 @@ export const CardImage = styled.div`
     border-radius: ${theme.border.radius};
     overflow: hidden;
     position: relative;
-
-    /* &:hover {
-      transition: all 0.6s ease;
-      border-color: ${theme.colors.purple.light};
-      img {
-        transition: all 0.6s ease;
-        filter: grayscale();
-      }
-    } */
   `}
 `;
 

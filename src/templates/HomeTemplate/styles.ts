@@ -24,13 +24,39 @@ export const Container = styled.main`
   `}
 `;
 
+export const SearchWrapper = styled.main`
+  ${() => css`
+    display: flex;
+    animation: ${toRight} 0.4s ease-in-out;
+    justify-content: space-between;
+    align-items: center;
+    gap: ${theme.spacings.medium};
+    padding: ${theme.spacings.xsmall};
+  `}
+`;
+
 export const CardWrapper = styled.div`
   ${() => css`
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
     justify-content: flex-start;
     align-items: flex-start;
     gap: ${theme.spacings.xxsmall};
     max-width: ${theme.grid.container};
+  `}
+`;
+
+export const NotFound = styled.div`
+  ${() => css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40vh;
+
+    p {
+      font-size: ${theme.font.sizes.h1};
+    }
   `}
 `;
