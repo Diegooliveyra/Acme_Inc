@@ -10,16 +10,11 @@ export type isDefaultType = 'default' | 'small';
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   disabled?: boolean;
   iconLeft?: any;
-  isDefault: isDefaultType;
-  label?: string;
+  placeholder?: string;
   required?: boolean;
-  className?: string;
-  loading?: string | boolean;
   type?: 'number' | 'text' | 'password' | 'date' | 'email' | 'month';
-  iconPassword?: boolean;
   onClickInIconRight?: boolean;
   value?: string;
-  maxLength?: number;
   initialValue?: any;
   handleOnChange?: (value: any) => any;
   handleOnFocus?: () => any;
@@ -27,16 +22,13 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   iconRight?: any;
   onClickIconRight?: () => void;
   onClickIconLeft?: () => void;
-  isSelect?: boolean;
 }
 
 const Input = ({
-  label = 'placeholder',
-  isDefault = 'default',
+  placeholder = '',
   type = 'text',
   iconLeft = '',
-  loading,
-  iconPassword = false,
+
   value = '',
   handleOnChange,
   handleOnBlur,
@@ -46,10 +38,9 @@ const Input = ({
   iconRight = '',
   onClickIconLeft,
   onClickIconRight,
-  isSelect,
   disabled = false,
   initialValue,
-  maxLength,
+
   ...rest
 }: InputProps) => {
   const [valueState, setValue] = useState(
@@ -90,14 +81,6 @@ const Input = ({
   }
 
   useEffect(() => {
-    if (iconPassword) {
-      setType('password');
-    } else {
-      setType(type);
-    }
-  }, [iconPassword]);
-
-  useEffect(() => {
     if (initialValue !== undefined && initialValue !== '') {
       setValue(initialValue);
 
@@ -115,7 +98,6 @@ const Input = ({
         isIconLeft={!!iconLeft}
         className={className}
         disabled={disabled}
-        onClick={isSelect ? clickedIconRight : () => {}}
       >
         <S.WrapperLeft>
           {!!iconLeft && (
@@ -126,41 +108,16 @@ const Input = ({
 
           <S.Input
             value={valueState}
-            placeholder={isDefault === 'small' ? label : ''}
+            placeholder={placeholder}
             onChange={changeInputValue}
             onFocus={onFocus}
             onBlur={onBlur}
             onWheel={(event) => event.currentTarget.blur()}
             type={typeState}
-            disabled={isSelect || disabled}
-            maxLength={maxLength}
+            disabled={disabled}
             {...rest}
           />
         </S.WrapperLeft>
-
-        {isDefault === 'default' && (
-          <S.Label>
-            {label}
-
-            {required && <span> *</span>}
-          </S.Label>
-        )}
-
-        {iconPassword && (
-          <S.ButtonPassword onClick={onClickVisibilit}>
-            {isShowPassword ? (
-              <ReactSVG
-                src={'/assets/icons/mai-ic-visible-false.svg'}
-                wrapper="span"
-              />
-            ) : (
-              <ReactSVG
-                src={'/assets/icons/mai-ic-visible-true.svg'}
-                wrapper="span"
-              />
-            )}
-          </S.ButtonPassword>
-        )}
 
         {!!iconRight && (
           <S.ButtonIconRight type="button" onClick={clickedIconRight}>
