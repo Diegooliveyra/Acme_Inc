@@ -1,37 +1,45 @@
-'use client';
+'use client'
 
-import { ReactSVG } from 'react-svg';
-import * as S from './styles';
-import { useRouter, usePathname } from 'next/navigation';
-import { useContext, useState } from 'react';
-import Sidebar from '../Sidebar';
-import { LoginContext } from '@/contexts/login';
-import { User } from '@/types/user';
+import { ReactSVG } from 'react-svg'
+import * as S from './styles'
+import { useRouter, usePathname } from 'next/navigation'
+import { useContext, useState } from 'react'
+import Sidebar from '../Sidebar'
+import { LoginContext } from '@/contexts/login'
+import { User } from '@/types/user'
+import { ProductsContext } from '@/contexts/products'
 
 const Header = () => {
-  const router = useRouter();
-  const pathName = usePathname();
-  const [showFavorites, setShowFavorites] = useState<boolean>(false);
-  const [showCart, setShowCart] = useState<boolean>(false);
-  const { login, setLogin } = useContext(LoginContext);
+  const router = useRouter()
+  const pathName = usePathname()
+  const [showFavorites, setShowFavorites] = useState<boolean>(false)
+  const [showCart, setShowCart] = useState<boolean>(false)
+  const { login, setLogin } = useContext(LoginContext)
+  const { favoritesProducts, setFavoritesProducts, contextProducts } = useContext(ProductsContext)
 
   const logout = () => {
-    setLogin({ isLogged: false });
-  };
+    setLogin({ isLogged: false })
+  }
 
   return (
     <S.HeaderContainer>
       <Sidebar isOpen={showFavorites} setIsOpen={setShowFavorites}>
         <h1>favoritos</h1>
+        {favoritesProducts?.map((product) => (
+          <p key={product.id}>{product?.title}</p>
+        ))}
       </Sidebar>
       <Sidebar isOpen={showCart} setIsOpen={setShowCart}>
         <h1>Carrinho</h1>
+        {contextProducts?.map((product) => (
+          <p key={product.id}>{product?.title}</p>
+        ))}
       </Sidebar>
 
       <S.HeaderContent>
         <S.Title
           onClick={() => {
-            if (pathName !== '/') router.back();
+            if (pathName !== '/') router.back()
           }}
         >
           <span>Acme</span> Inc
@@ -39,33 +47,18 @@ const Header = () => {
 
         <S.HeaderActions>
           {login?.isLogged ? (
-            <S.HeaderIcon
-              title="Favoritos"
-              onClick={() => setShowFavorites(true)}
-            >
-              <ReactSVG
-                src={'/assets/icons/heart.svg'}
-                role={'Icon'}
-                wrapper="span"
-              />
+            <S.HeaderIcon title="Favoritos" onClick={() => setShowFavorites(true)}>
+              <ReactSVG src={'/assets/icons/heart.svg'} role={'Icon'} wrapper="span" />
             </S.HeaderIcon>
           ) : null}
 
           <S.HeaderIcon title="Carrinho" onClick={() => setShowCart(true)}>
-            <ReactSVG
-              src={'/assets/icons/cart.svg'}
-              role={'Icon'}
-              wrapper="span"
-            />
+            <ReactSVG src={'/assets/icons/cart.svg'} role={'Icon'} wrapper="span" />
           </S.HeaderIcon>
 
           {!login?.isLogged ? (
             <S.HeaderIcon title="Login" onClick={() => router.push('/login')}>
-              <ReactSVG
-                src={'/assets/icons/user.svg'}
-                role={'Icon'}
-                wrapper="span"
-              />
+              <ReactSVG src={'/assets/icons/user.svg'} role={'Icon'} wrapper="span" />
             </S.HeaderIcon>
           ) : (
             <>
@@ -80,7 +73,7 @@ const Header = () => {
         </S.HeaderActions>
       </S.HeaderContent>
     </S.HeaderContainer>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

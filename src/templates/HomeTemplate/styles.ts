@@ -27,9 +27,9 @@ export const Container = styled.main`
 export const SearchWrapper = styled.main`
   ${() => css`
     display: flex;
+    align-items: end;
     animation: ${toRight} 0.4s ease-in-out;
     justify-content: space-between;
-    align-items: center;
     gap: ${theme.spacings.medium};
     padding: ${theme.spacings.xsmall};
   `}

@@ -1,21 +1,24 @@
-'use client';
+'use client'
 
-import React from 'react';
+import React from 'react'
 
 const useLocalStorage = (
   key: string,
-  inicial: string
+  inicial: string,
 ): [string, React.Dispatch<React.SetStateAction<string>>] => {
   const [state, setState] = React.useState<string>(() => {
-    const local = localStorage.getItem(key);
-    return local ? local : inicial;
-  });
+    if (typeof window !== 'undefined') {
+      const local = localStorage.getItem(key)
+      return local ? local : inicial
+    }
+    return inicial
+  })
 
   React.useEffect(() => {
-    window.localStorage.setItem(key, state);
-  }, [key, state]);
+    window.localStorage.setItem(key, state)
+  }, [key, state])
 
-  return [state, setState];
-};
+  return [state, setState]
+}
 
-export default useLocalStorage;
+export default useLocalStorage
