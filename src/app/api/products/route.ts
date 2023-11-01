@@ -50,5 +50,5 @@ export async function GET() {
     return products.sort((a, b) => a.title.length - b.title?.length)
   }
 
-  return Response.json({})
+  return Response.json(await generateJson())
 }
