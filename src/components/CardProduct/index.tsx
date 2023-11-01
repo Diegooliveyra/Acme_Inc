@@ -6,7 +6,8 @@ import * as S from './styles';
 
 import { moneyFormat } from '@/utils/moneyFormat';
 import { ReactSVG } from 'react-svg';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { LoginContext } from '@/contexts/login';
 
 export type CardProps = {
   id?: number;
@@ -25,24 +26,28 @@ const CardProduct = ({
   onClick,
 }: CardProps) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const { login, setLogin } = useContext(LoginContext);
 
   return (
     <S.Container onClick={onClick}>
       <S.CardImage>
-        <S.FavoriteButton
-          isFavorite={isFavorite}
-          onClick={(e) => {
-            e.stopPropagation();
-            handleFavorite(!isFavorite);
-            setIsFavorite(!isFavorite);
-          }}
-        >
-          <ReactSVG
-            src={'/assets/icons/heart.svg'}
-            role={'Icon'}
-            wrapper="span"
-          />
-        </S.FavoriteButton>
+        {login?.isLogged ? (
+          <S.FavoriteButton
+            isFavorite={isFavorite}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleFavorite(!isFavorite);
+              setIsFavorite(!isFavorite);
+            }}
+          >
+            <ReactSVG
+              src={'/assets/icons/heart.svg'}
+              role={'Icon'}
+              wrapper="span"
+            />
+          </S.FavoriteButton>
+        ) : null}
+
         <Image src={url_image} alt={title} fill objectFit="cover" />
       </S.CardImage>
       <S.CardInfo>

@@ -59,3 +59,19 @@ export const HeaderIcon = styled.div`
     }
   `}
 `;
+
+export const WrapperUser = styled.div`
+  ${() => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.spacings.xxsmall};
+
+    button {
+      font-size: ${theme.font.sizes.caption};
+      border: none;
+      background-color: transparent;
+      color: ${theme.colors.white};
+      cursor: pointer;
+    }
+  `}
+`;

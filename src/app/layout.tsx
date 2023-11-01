@@ -4,6 +4,7 @@ import StyledComponentsRegistry from '../lib/registry';
 import GlobalStyles from '@/styles/GlobalStyles';
 import Header from '@/components/Header';
 import ProductsProvider from '@/contexts/products';
+import LoginProvider from '@/contexts/login';
 
 const inter = Poppins({
   subsets: ['latin'],
@@ -24,11 +25,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ProductsProvider>
-          <StyledComponentsRegistry>
-            <GlobalStyles />
-            <Header />
-            {children}
-          </StyledComponentsRegistry>
+          <LoginProvider>
+            <StyledComponentsRegistry>
+              <GlobalStyles />
+              <Header />
+              {children}
+            </StyledComponentsRegistry>
+          </LoginProvider>
         </ProductsProvider>
       </body>
     </html>

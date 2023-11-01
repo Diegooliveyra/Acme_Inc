@@ -1,23 +1,42 @@
 'use client';
 
-import Input from '@/components/Input';
-import * as S from './styles';
-import Button from '@/components/Button';
-import { FormEventHandler, useState } from 'react';
-import { User } from '@/types/user';
+import { useContext, useState } from 'react';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { useRouter } from 'next/navigation';
+import Button from '@/components/Button';
+import Input from '@/components/Input';
+import { User } from '@/types/user';
+import * as S from './styles';
+import { LoginContext } from '@/contexts/login';
 
 const LoginTemplate = () => {
   const router = useRouter();
   const [showLogin, setShowLogin] = useState<boolean>(true);
+  const [loginData, setLoginData] = useState<User>({} as User);
   const [fieldValues, setFieldValues] = useState<User>({} as User);
   const [storage, setStorage] = useLocalStorage('user', '');
+
+  const { login, setLogin } = useContext(LoginContext);
+
+  function saoObjetosIguais(objeto1: any, objeto2: any): boolean {
+    const sortedKeys1 = Object.keys(objeto1).sort();
+    const sortedKeys2 = Object.keys(objeto2).sort();
+
+    if (sortedKeys1.length !== sortedKeys2.length) {
+      return false;
+    }
+
+    return sortedKeys1.every((key, index) => {
+      return key === sortedKeys2[index] && objeto1[key] === objeto2[key];
+    });
+  }
 
   const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
     setStorage(JSON.stringify(fieldValues));
+
     setShowLogin(true);
+    setFieldValues({} as User);
   };
 
   const handleSignIn = (e: React.FormEvent) => {
@@ -26,34 +45,43 @@ const LoginTemplate = () => {
     if (!storage.length) {
       return alert('Cadastro nao encontrado');
     }
-    const isSameStorage = JSON.stringify(fieldValues) === storage;
-    if (isSameStorage) {
+    const { name, phone, ...rest } = JSON.parse(storage);
+
+    setLogin({
+      isLogged: true,
+      user: JSON.parse(storage),
+    });
+
+    if (saoObjetosIguais(loginData, rest)) {
       router.push('/');
+    } else {
+      return alert('Cadastro nao encontrado2');
     }
-    setStorage(JSON.stringify(fieldValues));
   };
 
   return (
     <S.Container>
-      {showLogin ? (
+      {showLogin && (
         <S.Form onSubmit={handleSignIn}>
           <S.Title>Insira os dados de Login</S.Title>
           <Input
             required
             label="E-mail"
-            value={fieldValues?.email}
+            defaultValue={loginData?.email}
+            value={loginData?.email}
             handleOnChange={(value: string) =>
-              setFieldValues({ ...fieldValues, email: value })
+              setLoginData({ ...loginData, email: value })
             }
             type="email"
           />
           <Input
             required
+            defaultValue={loginData?.email}
             label="Senha"
             type="password"
-            value={fieldValues?.password}
+            value={loginData?.password}
             handleOnChange={(value: string) =>
-              setFieldValues({ ...fieldValues, password: value })
+              setLoginData({ ...loginData, password: value })
             }
           />
           <p>
@@ -63,12 +91,14 @@ const LoginTemplate = () => {
 
           <Button
             type="submit"
-            disabled={!(fieldValues?.email && fieldValues?.password)}
+            disabled={!(loginData?.email && loginData?.password)}
           >
             Entrar
           </Button>
         </S.Form>
-      ) : (
+      )}
+
+      {!showLogin && (
         <S.Form onSubmit={handleSignUp}>
           <S.Title>Complete os dados para criar sua conta</S.Title>
           <Input
@@ -107,7 +137,19 @@ const LoginTemplate = () => {
             <a onClick={() => setShowLogin(true)}>Clique aqui!</a>
           </p>
 
-          <Button type="submit">Cadastrar</Button>
+          <Button
+            disabled={
+              !(
+                fieldValues?.email &&
+                fieldValues?.password &&
+                fieldValues?.phone &&
+                fieldValues?.name
+              )
+            }
+            type="submit"
+          >
+            Cadastrar
+          </Button>
         </S.Form>
       )}
     </S.Container>
