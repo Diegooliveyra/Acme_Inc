@@ -38,7 +38,7 @@ const HomeTemplate = ({ products }: HomeTemplateProps) => {
     <S.Container>
       <S.SearchWrapper>
         <Input
-          placeholder="Buscar por nome"
+          label="Buscar por nome"
           value={search}
           handleOnChange={(value) => {
             setSearch(value);
