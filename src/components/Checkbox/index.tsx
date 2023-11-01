@@ -19,7 +19,7 @@ const Checkbox = ({
   disabled = false,
 }: CheckboxProps) => {
   return (
-    <S.CheckboxContainer type="checkbox" onClick={() => handleToggle(checked)}>
+    <S.CheckboxContainer onClick={disabled ? null : handleToggle}>
       {checked ? (
         useCheckDash ? (
           <ReactSVG src="/assets/icons/check-dash.svg" />

@@ -66,7 +66,7 @@ const HomeTemplate = ({ products }: HomeTemplateProps) => {
             handleSearch(value, showFavorites)
           }}
         />
-        {login.isLogged ? (
+        {login.isLogged && (
           <Checkbox
             text="Favoritos"
             checked={showFavorites}
@@ -74,7 +74,7 @@ const HomeTemplate = ({ products }: HomeTemplateProps) => {
               handleSelectFavorites()
             }}
           />
-        ) : null}
+        )}
       </S.SearchWrapper>
 
       {contextProducts?.length ? (

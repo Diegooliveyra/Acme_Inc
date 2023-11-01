@@ -3,7 +3,7 @@
 import styled from 'styled-components'
 import theme from '../../styles/theme'
 
-export const CheckboxContainer = styled.input`
+export const CheckboxContainer = styled.div`
   margin-right: 19px;
   cursor: pointer;
   display: flex;
