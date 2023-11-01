@@ -20,7 +20,7 @@ type HomeTemplateProps = {
 
 const HomeTemplate = ({ products }: HomeTemplateProps) => {
   const router = useRouter()
-  const [search, setSearch] = useState<string>()
+  const [search, setSearch] = useState<string>('')
   const [showFavorites, setShowFavorites] = useState<boolean>(false)
   const { login } = useContext(LoginContext)
   const { setProducts, contextProducts, favoritesProducts, setFavoritesProducts } =
@@ -30,11 +30,18 @@ const HomeTemplate = ({ products }: HomeTemplateProps) => {
     if (!contextProducts?.length) setProducts(products)
   }, [products])
 
-  const handleSearch = (value: string) => {
-    const filteredProducts = products.filter((product: IProductoDTO) =>
-      product.title.toLowerCase().includes(value.toLowerCase()),
+  const handleSearch = (value: string, show: boolean) => {
+    const productsList = show ? favoritesProducts : products
+
+    const filteredProducts = productsList.filter((product: IProductoDTO) =>
+      product.title.toLowerCase().includes(value.toLowerCase().trim()),
     )
     setProducts(filteredProducts)
+  }
+
+  const handleSelectFavorites = () => {
+    setShowFavorites(!showFavorites)
+    handleSearch(search, !showFavorites)
   }
 
   const handleFavorite = (checked: boolean, product: IProductoDTO) => {
@@ -53,16 +60,19 @@ const HomeTemplate = ({ products }: HomeTemplateProps) => {
         <Input
           label="Buscar por nome"
           value={search}
+          defaultValue={search}
           handleOnChange={(value) => {
             setSearch(value)
-            handleSearch(value)
+            handleSearch(value, showFavorites)
           }}
         />
         {login.isLogged ? (
           <Checkbox
             text="Favoritos"
             checked={showFavorites}
-            handleToggle={() => setShowFavorites(!showFavorites)}
+            handleToggle={() => {
+              handleSelectFavorites()
+            }}
           />
         ) : null}
       </S.SearchWrapper>

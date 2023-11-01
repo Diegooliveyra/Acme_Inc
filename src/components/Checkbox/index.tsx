@@ -1,13 +1,13 @@
-import { ReactSVG } from 'react-svg';
-import * as S from './styles';
+import { ReactSVG } from 'react-svg'
+import * as S from './styles'
 
 interface CheckboxProps {
-  useLabel?: boolean;
-  checked: boolean;
-  handleToggle: any;
-  useCheckDash?: boolean;
-  text?: string;
-  disabled?: boolean;
+  useLabel?: boolean
+  checked: boolean
+  handleToggle: any
+  useCheckDash?: boolean
+  text?: string
+  disabled?: boolean
 }
 
 const Checkbox = ({
@@ -19,7 +19,7 @@ const Checkbox = ({
   disabled = false,
 }: CheckboxProps) => {
   return (
-    <S.CheckboxContainer onClick={disabled ? null : handleToggle}>
+    <S.CheckboxContainer type="checkbox" onClick={() => handleToggle(checked)}>
       {checked ? (
         useCheckDash ? (
           <ReactSVG src="/assets/icons/check-dash.svg" />
@@ -32,7 +32,7 @@ const Checkbox = ({
       {useLabel ? <p>Selecionar todos</p> : <></>}
       {text && text != '' ? <S.Text>{text}</S.Text> : <></>}
     </S.CheckboxContainer>
-  );
-};
+  )
+}
 
-export default Checkbox;
+export default Checkbox

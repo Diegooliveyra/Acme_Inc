@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import styled from 'styled-components';
-import theme from '../../styles/theme';
+import styled from 'styled-components'
+import theme from '../../styles/theme'
 
-export const CheckboxContainer = styled.div`
+export const CheckboxContainer = styled.input`
   margin-right: 19px;
   cursor: pointer;
   display: flex;
@@ -20,7 +20,7 @@ export const CheckboxContainer = styled.div`
   svg path {
     fill: ${theme.colors.purple.light};
   }
-`;
+`
 
 export const Text = styled.div`
   font-size: 16px;
@@ -28,4 +28,4 @@ export const Text = styled.div`
   line-height: 24px;
   margin-left: 16px;
   color: ${theme.colors.gray.medium};
-`;
+`

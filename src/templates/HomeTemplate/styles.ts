@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import styled, { css, keyframes } from 'styled-components';
-import theme from '@/styles/theme';
+import styled, { css, keyframes } from 'styled-components'
+import theme from '@/styles/theme'
 
 const toRight = keyframes`
   from {
@@ -13,7 +13,7 @@ const toRight = keyframes`
     transform: translateX(0);
 
   }
-  `;
+  `
 
 export const Container = styled.main`
   ${() => css`
@@ -22,7 +22,7 @@ export const Container = styled.main`
     margin: 0 auto;
     animation: ${toRight} 0.4s ease-in-out;
   `}
-`;
+`
 
 export const SearchWrapper = styled.main`
   ${() => css`
@@ -33,19 +33,20 @@ export const SearchWrapper = styled.main`
     gap: ${theme.spacings.medium};
     padding: ${theme.spacings.xsmall};
   `}
-`;
+`
 
 export const CardWrapper = styled.div`
   ${() => css`
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
     width: 100%;
     justify-content: flex-start;
     align-items: flex-start;
     gap: ${theme.spacings.xxsmall};
     max-width: ${theme.grid.container};
   `}
-`;
+`
 
 export const NotFound = styled.div`
   ${() => css`
@@ -59,4 +60,4 @@ export const NotFound = styled.div`
       font-size: ${theme.font.sizes.h1};
     }
   `}
-`;
+`
