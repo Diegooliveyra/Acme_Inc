@@ -7,6 +7,7 @@ export const HeaderContainer = styled.header`
   ${() => css`
     background-color: ${theme.colors?.black.light};
     padding: ${theme.spacings.small};
+    position: relative;
   `}
 `;
 
