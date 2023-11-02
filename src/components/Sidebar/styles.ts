@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import styled, { css } from 'styled-components';
-import theme from '@/styles/theme';
+import styled, { css } from 'styled-components'
+import theme from '@/styles/theme'
 
 export const Container = styled.header`
   ${() => css`
@@ -9,11 +9,11 @@ export const Container = styled.header`
     padding: ${theme.spacings.small};
     position: relative;
   `}
-`;
+`
 
 type SideBarProps = {
-  $isOpen: boolean;
-};
+  $isOpen: boolean
+}
 
 export const Content = styled.header<SideBarProps>`
   ${({ $isOpen }) => css`
@@ -28,5 +28,16 @@ export const Content = styled.header<SideBarProps>`
     transition: transform 0.4s ease;
 
     transform: ${$isOpen ? 'translateX(0)' : 'translateX(400px)'};
+
+    span {
+      font-size: ${theme.font.sizes.body};
+      display: flex;
+      align-items: center;
+      gap: ${theme.spacings.xxsmall};
+      background-color: transparent;
+      border: none;
+      color: ${theme.colors.white};
+      cursor: pointer;
+    }
   `}
-`;
+`

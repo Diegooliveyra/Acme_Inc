@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import styled, { css } from 'styled-components';
-import theme from '@/styles/theme';
+import styled, { css } from 'styled-components'
+import theme from '@/styles/theme'
 
 export const HeaderContainer = styled.header`
   ${() => css`
@@ -9,7 +9,7 @@ export const HeaderContainer = styled.header`
     padding: ${theme.spacings.small};
     position: relative;
   `}
-`;
+`
 
 export const Title = styled.h1`
   ${() => css`
@@ -20,7 +20,7 @@ export const Title = styled.h1`
       color: ${theme.colors?.purple.light};
     }
   `}
-`;
+`
 
 export const HeaderContent = styled.div`
   ${() => css`
@@ -32,7 +32,7 @@ export const HeaderContent = styled.div`
     justify-content: space-between;
     align-items: center;
   `}
-`;
+`
 
 export const HeaderActions = styled.div`
   ${() => css`
@@ -40,7 +40,7 @@ export const HeaderActions = styled.div`
     gap: ${theme.spacings.xsmall};
     align-items: center;
   `}
-`;
+`
 
 export const HeaderIcon = styled.div`
   ${() => css`
@@ -58,7 +58,7 @@ export const HeaderIcon = styled.div`
       background-color: ${theme.colors.purple.dark};
     }
   `}
-`;
+`
 
 export const WrapperUser = styled.div`
   ${() => css`
@@ -74,4 +74,45 @@ export const WrapperUser = styled.div`
       cursor: pointer;
     }
   `}
-`;
+`
+
+export const WrapperCards = styled.div`
+  ${() => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.spacings.xxsmall};
+    width: 100%;
+    overflow-y: auto;
+    max-height: 80vh;
+  `}
+`
+
+export const WrapperCartCards = styled.div`
+  ${() => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.spacings.xxsmall};
+    width: 100%;
+    overflow-y: auto;
+    max-height: 40vh;
+    margin-bottom: ${theme.spacings.large};
+  `}
+`
+export const WrapperPrice = styled.div`
+  ${() => css`
+    display: flex;
+    justify-content: space-between;
+
+    padding: ${theme.spacings.xsmall};
+    width: 100%;
+    border-bottom: 1px solid ${theme.colors.gray.medium};
+
+    h2 {
+      font-size: ${theme.font.sizes.h2};
+    }
+
+    p {
+      font-size: ${theme.font.sizes.body};
+    }
+  `}
+`

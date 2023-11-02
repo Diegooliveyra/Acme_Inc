@@ -8,6 +8,8 @@ import Sidebar from '../Sidebar'
 import { LoginContext } from '@/contexts/login'
 import { User } from '@/types/user'
 import { ProductsContext } from '@/contexts/products'
+import CardProductFlat from '../CardProductFlat'
+import Button from '../Button'
 
 const Header = () => {
   const router = useRouter()
@@ -21,19 +23,46 @@ const Header = () => {
     setLogin({ isLogged: false })
   }
 
+  const handleRemove = (id: number) => {
+    const products = [...favoritesProducts]
+    setFavoritesProducts(products.filter((p) => p.id !== id))
+  }
+
   return (
     <S.HeaderContainer>
       <Sidebar isOpen={showFavorites} setIsOpen={setShowFavorites}>
-        <h1>favoritos</h1>
-        {favoritesProducts?.map((product) => (
-          <p key={product.id}>{product?.title}</p>
-        ))}
+        <S.Title style={{ margin: '16px 0' }}>Meus Favoritos</S.Title>
+        <S.WrapperCards>
+          {favoritesProducts?.map((product) => (
+            <CardProductFlat
+              key={product.id}
+              data={product}
+              handleRemove={() => handleRemove(product.id)}
+            />
+          ))}
+        </S.WrapperCards>
       </Sidebar>
       <Sidebar isOpen={showCart} setIsOpen={setShowCart}>
-        <h1>Carrinho</h1>
-        {contextProducts?.map((product) => (
-          <p key={product.id}>{product?.title}</p>
-        ))}
+        <S.Title style={{ margin: '16px 0' }}> 🛒 Carrinho</S.Title>
+        <S.WrapperCartCards>
+          {contextProducts?.map((product) => (
+            <CardProductFlat
+              key={product.id}
+              data={product}
+              handleRemove={() => handleRemove(product.id)}
+            />
+          ))}
+        </S.WrapperCartCards>
+        <S.WrapperPrice>
+          <h2>Entrega</h2>
+          <p>GRATIS</p>
+        </S.WrapperPrice>
+        <S.WrapperPrice>
+          <h2>Total</h2>
+          <p>{'R$ 10,00'}</p>
+        </S.WrapperPrice>
+
+        <Button style={{ marginTop: '3rem' }}>Finalizar compra</Button>
       </Sidebar>
 
       <S.HeaderContent>
