@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import theme from '@/styles/theme';
-import styled, { css } from 'styled-components';
+import theme from '@/styles/theme'
+import styled, { css } from 'styled-components'
 
 type ContainerProps = {
-  disabled: boolean;
-};
+  disabled: boolean
+}
 
 export const Container = styled.button`
   ${({ disabled }) => css`
@@ -17,7 +17,7 @@ export const Container = styled.button`
     color: ${theme.colors.white};
     border: none;
     border-radius: ${theme.border.radius};
-
+    width: 100%;
     transition: all 0.4s ease-in-out;
 
     cursor: ${disabled ? 'not-allowed' : 'pointer'};
@@ -27,4 +27,4 @@ export const Container = styled.button`
       background-color: ${theme.colors.purple.dark};
     }
   `}
-`;
+`
