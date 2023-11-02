@@ -66,3 +66,29 @@ export const RemoveButton = styled.button`
     cursor: pointer;
   `}
 `
+export const AmountProducts = styled.div`
+  ${() => css`
+    display: flex;
+    align-items: center;
+    gap: ${theme.spacings.xsmall};
+
+    span {
+      font-size: ${theme.font.sizes.h3};
+      font-weight: ${theme.font.semiBold};
+    }
+
+    button {
+      cursor: pointer;
+      font-size: ${theme.font.sizes.h2};
+      background-color: transparent;
+      color: ${theme.colors.white};
+      border: 1px solid ${theme.colors.gray.dark};
+      border-radius: ${theme.border.radius};
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+    }
+  `}
+`

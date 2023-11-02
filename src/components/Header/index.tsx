@@ -6,10 +6,12 @@ import { useRouter, usePathname } from 'next/navigation'
 import { useContext, useState } from 'react'
 import Sidebar from '../Sidebar'
 import { LoginContext } from '@/contexts/login'
-import { User } from '@/types/user'
-import { ProductsContext } from '@/contexts/products'
-import CardProductFlat from '../CardProductFlat'
 import Button from '../Button'
+import { CartContext } from '@/contexts/cart'
+import Cart from '../Cart'
+import Favorites from '../Favorites'
+import { moneyFormat } from '@/utils/moneyFormat'
+import { ProductsContext } from '@/contexts/products'
 
 const Header = () => {
   const router = useRouter()
@@ -17,58 +19,57 @@ const Header = () => {
   const [showFavorites, setShowFavorites] = useState<boolean>(false)
   const [showCart, setShowCart] = useState<boolean>(false)
   const { login, setLogin } = useContext(LoginContext)
-  const { favoritesProducts, setFavoritesProducts, contextProducts } = useContext(ProductsContext)
+  const { total, products } = useContext(CartContext)
+  const { favoritesProducts } = useContext(ProductsContext)
 
   const logout = () => {
     setLogin({ isLogged: false })
   }
 
-  const handleRemove = (id: number) => {
-    const products = [...favoritesProducts]
-    setFavoritesProducts(products.filter((p) => p.id !== id))
-  }
-
   return (
     <S.HeaderContainer>
       <Sidebar isOpen={showFavorites} setIsOpen={setShowFavorites}>
-        <S.Title style={{ margin: '16px 0' }}>Meus Favoritos</S.Title>
-        <S.WrapperCards>
-          {favoritesProducts?.map((product) => (
-            <CardProductFlat
-              key={product.id}
-              data={product}
-              handleRemove={() => handleRemove(product.id)}
-            />
-          ))}
-        </S.WrapperCards>
+        {favoritesProducts.length ? (
+          <Favorites />
+        ) : (
+          <S.NotFound>
+            <p>Nenhum produto favorito encontrado 💔</p>
+          </S.NotFound>
+        )}
       </Sidebar>
       <Sidebar isOpen={showCart} setIsOpen={setShowCart}>
-        <S.Title style={{ margin: '16px 0' }}> 🛒 Carrinho</S.Title>
-        <S.WrapperCartCards>
-          {contextProducts?.map((product) => (
-            <CardProductFlat
-              key={product.id}
-              data={product}
-              handleRemove={() => handleRemove(product.id)}
-            />
-          ))}
-        </S.WrapperCartCards>
-        <S.WrapperPrice>
-          <h2>Entrega</h2>
-          <p>GRATIS</p>
-        </S.WrapperPrice>
-        <S.WrapperPrice>
-          <h2>Total</h2>
-          <p>{'R$ 10,00'}</p>
-        </S.WrapperPrice>
-
-        <Button style={{ marginTop: '3rem' }}>Finalizar compra</Button>
+        {products.length ? (
+          <>
+            <Cart />
+            <S.WrapperPrice>
+              <h2>Frete</h2>
+              <p>GRÁTIS</p>
+            </S.WrapperPrice>
+            <S.WrapperPrice>
+              <h2>Total</h2>
+              <p>{moneyFormat(total)}</p>
+            </S.WrapperPrice>
+            <Button
+              onClick={() => {
+                setShowCart(false)
+                router.push('/json')
+              }}
+              style={{ marginTop: '3rem' }}
+            >
+              Finalizar compra
+            </Button>
+          </>
+        ) : (
+          <S.NotFound>
+            <p>Carrinho vazio 💔</p>
+          </S.NotFound>
+        )}
       </Sidebar>
 
       <S.HeaderContent>
         <S.Title
           onClick={() => {
-            if (pathName !== '/') router.back()
+            router.push('/')
           }}
         >
           <span>Acme</span> Inc

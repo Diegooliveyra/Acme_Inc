@@ -116,3 +116,17 @@ export const WrapperPrice = styled.div`
     }
   `}
 `
+
+export const NotFound = styled.div`
+  ${() => css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40vh;
+
+    p {
+      font-size: ${theme.font.sizes.body};
+    }
+  `}
+`

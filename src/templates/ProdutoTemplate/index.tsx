@@ -13,6 +13,7 @@ import { IProductoDTO } from '@/types/product'
 import { ReactSVG } from 'react-svg'
 import * as S from './styles'
 import Button from '@/components/Button'
+import { CartContext } from '@/contexts/cart'
 
 type ProdutoTemplateProps = {
   id: number
@@ -22,8 +23,22 @@ const ProdutoTemplate = ({ id }: ProdutoTemplateProps) => {
   const router = useRouter()
   const [product, setProduct] = useState<IProductoDTO>({} as IProductoDTO)
   const [isFavorite, setIsFavorite] = useState<boolean>(false)
+  const [quantity, setQuantity] = useState(1)
   const { contextProducts, favoritesProducts, setFavoritesProducts } = useContext(ProductsContext)
   const { login } = useContext(LoginContext)
+  const { addProductToCart } = useContext(CartContext)
+
+  const handleDecreaseQuantityClick = () => {
+    setQuantity((prev) => (prev === 1 ? prev : prev - 1))
+  }
+
+  const handleIncreaseQuantityClick = () => {
+    setQuantity((prev) => prev + 1)
+  }
+
+  const handleAddToCartClick = () => {
+    addProductToCart({ ...product, quantity })
+  }
 
   useEffect(() => {
     const productFilterd = contextProducts.reduce((acc, product) => {
@@ -88,9 +103,9 @@ const ProdutoTemplate = ({ id }: ProdutoTemplateProps) => {
             </S.ProductPrice>
 
             <S.AmountProducts>
-              <button> {'-'} </button>
-              <span>{1}</span>
-              <button> {'+'} </button>
+              <button onClick={handleDecreaseQuantityClick}> {'-'} </button>
+              <span>{quantity}</span>
+              <button onClick={handleIncreaseQuantityClick}> {'+'} </button>
             </S.AmountProducts>
 
             <S.DescriptionProduct>
@@ -98,7 +113,7 @@ const ProdutoTemplate = ({ id }: ProdutoTemplateProps) => {
               <p>{product.description}</p>
             </S.DescriptionProduct>
 
-            <Button>Adcionar ao carrinho</Button>
+            <Button onClick={handleAddToCartClick}>Adcionar ao carrinho</Button>
           </S.InfoContainer>
         </>
       ) : null}
