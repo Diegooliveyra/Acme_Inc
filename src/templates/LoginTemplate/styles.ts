@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import styled, { css, keyframes } from 'styled-components';
-import theme from '@/styles/theme';
+import styled, { css, keyframes } from 'styled-components'
+import theme from '@/styles/theme'
 
 const toRight = keyframes`
   from {
@@ -13,7 +13,7 @@ const toRight = keyframes`
     transform: translateX(0);
 
   }
-  `;
+  `
 
 export const Container = styled.main`
   ${() => css`
@@ -23,8 +23,9 @@ export const Container = styled.main`
     width: 100%;
     height: calc(100vh - 88px);
     animation: ${toRight} 0.4s ease-in-out;
+    padding-top: 8rem;
   `}
-`;
+`
 
 export const Title = styled.h1`
   ${() => css`
@@ -34,7 +35,7 @@ export const Title = styled.h1`
     margin-bottom: ${theme.spacings.small};
     text-align: center;
   `}
-`;
+`
 
 export const Form = styled.form`
   ${() => css`
@@ -61,4 +62,4 @@ export const Form = styled.form`
       cursor: pointer;
     }
   `}
-`;
+`
