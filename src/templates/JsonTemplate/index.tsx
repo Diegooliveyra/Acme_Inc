@@ -1,14 +1,14 @@
 'use client'
 
-import { JsonView, allExpanded, darkStyles, defaultStyles } from 'react-json-view-lite'
-import 'react-json-view-lite/dist/index.css'
 import * as S from './styles'
 import { CartContext, CartProduct } from '@/contexts/cart'
 import { useContext, useEffect, useState } from 'react'
-import { IProductoDTO } from '@/types/product'
+
 import { User } from '@/types/user'
-import { LoginContext } from '@/contexts/login'
+
 import useLocalStorage from '@/hooks/useLocalStorage'
+
+import loadable from '@loadable/component'
 
 type JsonType = {
   cart: CartProduct[]
@@ -17,6 +17,8 @@ type JsonType = {
 }
 
 const JsonTemplate = () => {
+  const ReactJson = loadable(() => import('react-json-view'))
+
   const { total, products } = useContext(CartContext)
   const [json, setJson] = useState<JsonType>({} as JsonType)
   const [user] = useLocalStorage('user', '')
@@ -31,11 +33,18 @@ const JsonTemplate = () => {
 
   return (
     <S.Container>
-      <S.Title>Obrigado pela compra</S.Title>
+      <S.Title>Obrigado pela compra 😎</S.Title>
 
-      <div>
-        <JsonView data={json} shouldExpandNode={allExpanded} style={{ ...darkStyles }} />
-      </div>
+      <S.JsonContent>
+        <ReactJson
+          enableClipboard={false}
+          defaultValue={false}
+          displayObjectSize={false}
+          displayDataTypes={false}
+          src={json}
+          theme="threezerotwofour"
+        />
+      </S.JsonContent>
     </S.Container>
   )
 }

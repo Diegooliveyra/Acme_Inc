@@ -2,6 +2,6 @@
 
 import JsonTemplate from '@/templates/JsonTemplate'
 
-export default function Json() {
+export default function JsonView() {
   return <JsonTemplate />
 }

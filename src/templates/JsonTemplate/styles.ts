@@ -20,10 +20,10 @@ export const Container = styled.main`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-
+    padding-top: 8rem;
     width: 100%;
-    height: calc(100vh - 88px);
-    padding: ${theme.spacings.xlarge};
+    height: 100%;
+    padding: 12rem ${theme.spacings.xsmall};
     animation: ${toRight} 0.4s ease-in-out;
   `}
 `
@@ -35,5 +35,17 @@ export const Title = styled.h1`
     line-height: ${theme.spacings.small};
     margin-bottom: ${theme.spacings.small};
     text-align: center;
+  `}
+`
+export const JsonContent = styled.div`
+  ${() => css`
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: ${theme.font.sizes.button};
+    font-weight: ${theme.font.normal};
+    background-color: ${theme.colors.purple.light};
+    border-radius: ${theme.border.radius};
+    padding: ${theme.spacings.xsmall};
   `}
 `
