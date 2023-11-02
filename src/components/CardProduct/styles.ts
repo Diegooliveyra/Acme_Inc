@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import styled, { css } from 'styled-components';
-import theme from '@/styles/theme';
+import styled, { css } from 'styled-components'
+import theme from '@/styles/theme'
 
 export const Container = styled.div`
   ${() => css`
@@ -22,7 +22,7 @@ export const Container = styled.div`
       }
     }
   `}
-`;
+`
 
 export const CardImage = styled.div`
   ${() => css`
@@ -35,18 +35,18 @@ export const CardImage = styled.div`
     overflow: hidden;
     position: relative;
   `}
-`;
+`
 
 type FavoriteButtonProps = {
-  isFavorite: boolean;
-};
+  isFavorite: boolean
+}
 
 export const FavoriteButton = styled.div<FavoriteButtonProps>`
   ${({ isFavorite }) => css`
     position: absolute;
     right: ${theme.spacings.xsmall};
     top: ${theme.spacings.xsmall};
-    z-index: ${theme.layers.base};
+    z-index: ${theme.layers.base - 1};
 
     svg path {
       fill: ${isFavorite ? theme.colors.purple.light : theme.colors.white};
@@ -62,7 +62,7 @@ export const FavoriteButton = styled.div<FavoriteButtonProps>`
       transform: scale(1.2);
     }
   `}
-`;
+`
 
 export const CardInfo = styled.div`
   ${() => css`
@@ -81,4 +81,4 @@ export const CardInfo = styled.div`
       line-height: ${theme.spacings.medium};
     }
   `}
-`;
+`

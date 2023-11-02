@@ -7,7 +7,11 @@ export const HeaderContainer = styled.header`
   ${() => css`
     background-color: ${theme.colors?.black.light};
     padding: ${theme.spacings.small};
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: ${theme.layers.base};
   `}
 `
 
@@ -53,6 +57,21 @@ export const HeaderIcon = styled.div`
     border: 2px solid ${theme.colors.gray.dark};
     border-radius: ${theme.border.radius};
     transition: all 0.4s ease;
+    position: relative;
+
+    span {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: ${theme.colors.purple.light};
+      color: ${theme.colors.white};
+    }
 
     &:hover {
       background-color: ${theme.colors.purple.dark};
@@ -66,12 +85,20 @@ export const WrapperUser = styled.div`
     flex-direction: column;
     gap: ${theme.spacings.xxsmall};
 
+    h2 {
+      text-transform: capitalize;
+    }
+
     button {
       font-size: ${theme.font.sizes.caption};
       border: none;
       background-color: transparent;
       color: ${theme.colors.white};
       cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   `}
 `

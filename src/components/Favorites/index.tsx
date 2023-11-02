@@ -6,7 +6,7 @@ import * as S from './styles'
 
 const Favorites = () => {
   const router = useRouter()
-  const { favoritesProducts, setFavoritesProducts } = useContext(ProductsContext)
+  const { favoritesProducts, setFavoritesProducts, setShowFavorites } = useContext(ProductsContext)
 
   const handleRemove = (id: number) => {
     const products = [...favoritesProducts]
@@ -19,7 +19,10 @@ const Favorites = () => {
       <S.WrapperCards>
         {favoritesProducts?.map((product) => (
           <CardProductFlat
-            onClick={() => router.push(`/produto/${product.id}`)}
+            onClick={() => {
+              router.push(`/produto/${product.id}`)
+              setShowFavorites(false)
+            }}
             key={product.id}
             data={product}
             handleRemove={() => handleRemove(product.id)}

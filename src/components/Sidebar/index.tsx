@@ -13,13 +13,16 @@ type SidebarProps = {
 
 const Sidebar = ({ children, isOpen = false, setIsOpen }: SidebarProps) => {
   return (
-    <S.Content $isOpen={isOpen}>
-      <span onClick={() => setIsOpen(false)}>
-        <ReactSVG src="/assets/icons/close.svg" />
-        Fechar
-      </span>
-      {children}
-    </S.Content>
+    <S.Container>
+      <S.Content $isOpen={isOpen} className={isOpen ? 'active' : ''}>
+        <span onClick={() => setIsOpen(false)}>
+          <ReactSVG src="/assets/icons/close.svg" />
+          Fechar
+        </span>
+        {children}
+      </S.Content>
+      <div id={isOpen ? 'overlay' : 'none'} onClick={() => setIsOpen(!isOpen)}></div>
+    </S.Container>
   )
 }
 

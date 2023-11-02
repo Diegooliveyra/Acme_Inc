@@ -2,8 +2,8 @@
 
 import { ReactSVG } from 'react-svg'
 import * as S from './styles'
-import { useRouter, usePathname } from 'next/navigation'
-import { useContext, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useContext } from 'react'
 import Sidebar from '../Sidebar'
 import { LoginContext } from '@/contexts/login'
 import Button from '../Button'
@@ -15,16 +15,10 @@ import { ProductsContext } from '@/contexts/products'
 
 const Header = () => {
   const router = useRouter()
-  const pathName = usePathname()
-  const [showFavorites, setShowFavorites] = useState<boolean>(false)
-  const [showCart, setShowCart] = useState<boolean>(false)
-  const { login, setLogin } = useContext(LoginContext)
+  const { login } = useContext(LoginContext)
   const { total, products } = useContext(CartContext)
-  const { favoritesProducts } = useContext(ProductsContext)
-
-  const logout = () => {
-    setLogin({ isLogged: false })
-  }
+  const { favoritesProducts, setShowCart, setShowFavorites, showCart, showFavorites } =
+    useContext(ProductsContext)
 
   return (
     <S.HeaderContainer>
@@ -49,14 +43,32 @@ const Header = () => {
               <h2>Total</h2>
               <p>{moneyFormat(total)}</p>
             </S.WrapperPrice>
+
             <Button
               onClick={() => {
                 setShowCart(false)
-                router.push('/json')
+                if (login.isLogged) {
+                  router.push('/json-view')
+                  return
+                }
+
+                router.push('/login')
               }}
               style={{ marginTop: '3rem' }}
             >
               Finalizar compra
+            </Button>
+
+            <Button
+              theme="secondary"
+              onClick={() => {
+                setShowCart(false)
+
+                router.push('/')
+              }}
+              style={{ marginTop: '3rem' }}
+            >
+              Ver mais produtos
             </Button>
           </>
         ) : (
@@ -78,24 +90,26 @@ const Header = () => {
         <S.HeaderActions>
           {login?.isLogged ? (
             <S.HeaderIcon title="Favoritos" onClick={() => setShowFavorites(true)}>
-              <ReactSVG src={'/assets/icons/heart.svg'} role={'Icon'} wrapper="span" />
+              {favoritesProducts.length > 0 && <span>{favoritesProducts.length}</span>}
+              <ReactSVG src={'/assets/icons/heart.svg'} role={'Icon'} wrapper="div" />
             </S.HeaderIcon>
           ) : null}
 
           <S.HeaderIcon title="Carrinho" onClick={() => setShowCart(true)}>
-            <ReactSVG src={'/assets/icons/cart.svg'} role={'Icon'} wrapper="span" />
+            {products.length > 0 && <span>{products.length}</span>}
+            <ReactSVG src={'/assets/icons/cart.svg'} role={'Icon'} wrapper="div" />
           </S.HeaderIcon>
 
           {!login?.isLogged ? (
             <S.HeaderIcon title="Login" onClick={() => router.push('/login')}>
-              <ReactSVG src={'/assets/icons/user.svg'} role={'Icon'} wrapper="span" />
+              <ReactSVG src={'/assets/icons/user.svg'} role={'Icon'} wrapper="div" />
             </S.HeaderIcon>
           ) : (
             <>
               {login?.user?.name ? (
                 <S.WrapperUser>
                   <h2>{login?.user?.name.split(' ')[0]}</h2>
-                  <button onClick={logout}>Sair?</button>
+                  <button onClick={() => router.push('/minha-conta')}>Minha Conta</button>
                 </S.WrapperUser>
               ) : null}
             </>

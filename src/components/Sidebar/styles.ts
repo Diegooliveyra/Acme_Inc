@@ -5,9 +5,17 @@ import theme from '@/styles/theme'
 
 export const Container = styled.header`
   ${() => css`
-    background-color: ${theme.colors?.black.light};
-    padding: ${theme.spacings.small};
     position: relative;
+
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: ${theme.layers.overlay};
+      background-color: rgba(0, 0, 0, 0.8);
+    }
   `}
 `
 
@@ -24,10 +32,14 @@ export const Content = styled.header<SideBarProps>`
     position: fixed;
     right: 0;
     top: 0;
-    z-index: 99;
+    z-index: ${theme.layers.modal};
     transition: transform 0.4s ease;
 
     transform: ${$isOpen ? 'translateX(0)' : 'translateX(400px)'};
+
+    &.active {
+      pointer-events: all;
+    }
 
     span {
       font-size: ${theme.font.sizes.body};

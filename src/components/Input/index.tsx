@@ -1,20 +1,24 @@
-import { InputHTMLAttributes, useEffect, useState } from 'react';
+import { InputHTMLAttributes, useEffect, useState } from 'react'
 
-import * as S from './styles';
+import * as S from './styles'
+import maskPhone2 from '@/utils/masks/newPhoneMask'
 
-export type isDefaultType = 'default' | 'small';
+export type isDefaultType = 'default' | 'small'
+
+export type MasksTypes = 'phone'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  disabled?: boolean;
-  label: string;
-  placeholder?: string;
-  required?: boolean;
-  type?: 'number' | 'text' | 'password' | 'date' | 'email' | 'tel';
-  value?: string;
-  initialValue?: any;
-  handleOnChange?: (value: any) => any;
-  handleOnFocus?: () => any;
-  handleOnBlur?: () => any;
+  disabled?: boolean
+  label: string
+  mask?: MasksTypes
+  placeholder?: string
+  required?: boolean
+  type?: 'number' | 'text' | 'password' | 'date' | 'email' | 'tel'
+  value?: string
+  initialValue?: any
+  handleOnChange?: (value: any) => any
+  handleOnFocus?: () => any
+  handleOnBlur?: () => any
 }
 
 const Input = ({
@@ -29,26 +33,35 @@ const Input = ({
   className,
   disabled = false,
   initialValue,
-
+  mask,
   ...rest
 }: InputProps) => {
-  const [valueState, setValue] = useState(
-    initialValue !== '' ? initialValue : value
-  );
+  const [valueState, setValue] = useState(initialValue !== '' ? initialValue : value)
+
+  const changeMask = (value: string) => {
+    let valueWithMask = value
+
+    if (mask === 'phone') {
+      valueWithMask = maskPhone2(value)
+    }
+
+    return valueWithMask
+  }
 
   const changeInputValue = (event: React.FormEvent<HTMLInputElement>) => {
-    let value = event.currentTarget.value;
-    setValue(value);
-    !!handleOnChange && handleOnChange!(value);
-  };
+    let value = event.currentTarget.value
+    value = changeMask(value)
+    setValue(value)
+    !!handleOnChange && handleOnChange!(value)
+  }
 
   useEffect(() => {
     if (initialValue !== undefined && initialValue !== '') {
-      setValue(initialValue);
+      setValue(initialValue)
     } else {
-      setValue(value);
+      setValue(value)
     }
-  }, [initialValue, value]);
+  }, [initialValue, value])
 
   return (
     <S.Container>
@@ -65,7 +78,7 @@ const Input = ({
         />
       </S.Wrapper>
     </S.Container>
-  );
-};
+  )
+}
 
-export default Input;
+export default Input

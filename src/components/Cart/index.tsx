@@ -3,11 +3,14 @@ import CardProductFlat from '../CardProductFlat'
 import * as S from './styles'
 import { CartContext } from '@/contexts/cart'
 import { useRouter } from 'next/navigation'
+import { ProductsContext } from '@/contexts/products'
 
 const Cart = () => {
   const router = useRouter()
   const { removeProductFromCart, decreaseProductQuantity, increaseProductQuantity, products } =
     useContext(CartContext)
+
+  const { setShowCart } = useContext(ProductsContext)
 
   return (
     <>
@@ -15,7 +18,10 @@ const Cart = () => {
       <S.WrapperCartCards>
         {products?.map((product) => (
           <CardProductFlat
-            onClick={() => router.push(`/produto/${product.id}`)}
+            onClick={() => {
+              setShowCart(false)
+              router.push(`/produto/${product.id}`)
+            }}
             handleDecrease={() => decreaseProductQuantity(product.id)}
             handleIncrease={() => increaseProductQuantity(product.id)}
             quantity={product.quantity}
