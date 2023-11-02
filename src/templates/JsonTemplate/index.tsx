@@ -1,6 +1,5 @@
 'use client'
 
-import * as S from './styles'
 import { CartContext, CartProduct } from '@/contexts/cart'
 import { useContext, useEffect, useState } from 'react'
 
@@ -9,6 +8,8 @@ import { User } from '@/types/user'
 import useLocalStorage from '@/hooks/useLocalStorage'
 
 import loadable from '@loadable/component'
+
+import * as S from './styles'
 
 type JsonType = {
   cart: CartProduct[]

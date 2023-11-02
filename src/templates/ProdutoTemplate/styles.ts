@@ -23,7 +23,7 @@ export const Container = styled.main`
     margin: ${theme.spacings.large} auto;
     display: grid;
     grid-template-columns: 1.2fr 1fr;
-
+    padding-top: 10rem;
     animation: ${toRight} 0.4s ease-in-out;
 
     @media (max-width: 1000px) {
@@ -98,10 +98,21 @@ export const FavoriteButton = styled.div<FavoriteButtonProps>`
 
 export const ProductPrice = styled.div`
   ${() => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.spacings.xxsmall};
     margin-top: ${theme.spacings.small};
+
     h2 {
       font-size: ${theme.font.sizes.h1};
       font-weight: ${theme.font.semiBold};
+    }
+
+    span {
+      font-size: ${theme.font.sizes.caption};
+      font-weight: ${theme.font.normal};
+      color: ${theme.colors.purple.light};
+      margin-bottom: -22px;
     }
   `}
 `

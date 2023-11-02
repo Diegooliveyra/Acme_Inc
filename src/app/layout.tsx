@@ -1,13 +1,20 @@
 import type { Metadata } from 'next'
-import { Inter, Poppins } from 'next/font/google'
-import StyledComponentsRegistry from '../lib/registry'
-import GlobalStyles from '@/styles/GlobalStyles'
+
+import { Poppins } from 'next/font/google'
+
 import Header from '@/components/Header'
+
 import ProductsProvider from '@/contexts/products'
 import LoginProvider from '@/contexts/login'
 import CartProvider from '@/contexts/cart'
 
-const inter = Poppins({
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+import StyledComponentsRegistry from '../lib/registry'
+import GlobalStyles from '@/styles/GlobalStyles'
+
+const poppins = Poppins({
   subsets: ['latin'],
   weight: ['300', '400', '600', '700'],
 })
@@ -20,13 +27,26 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <ProductsProvider>
           <CartProvider>
             <LoginProvider>
               <StyledComponentsRegistry>
                 <GlobalStyles />
                 <Header />
+                <ToastContainer
+                  position="top-center"
+                  autoClose={3000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  style={{ fontSize: '16px' }}
+                  draggable
+                  pauseOnHover
+                  theme="dark"
+                />
                 {children}
               </StyledComponentsRegistry>
             </LoginProvider>

@@ -1,17 +1,21 @@
 'use client'
 
-import { ReactSVG } from 'react-svg'
-import * as S from './styles'
 import { useRouter } from 'next/navigation'
+import { ReactSVG } from 'react-svg'
 import { useContext } from 'react'
-import Sidebar from '../Sidebar'
-import { LoginContext } from '@/contexts/login'
-import Button from '../Button'
-import { CartContext } from '@/contexts/cart'
-import Cart from '../Cart'
+
 import Favorites from '../Favorites'
-import { moneyFormat } from '@/utils/moneyFormat'
+import Sidebar from '../Sidebar'
+import Button from '../Button'
+import Cart from '../Cart'
+
 import { ProductsContext } from '@/contexts/products'
+import { LoginContext } from '@/contexts/login'
+import { CartContext } from '@/contexts/cart'
+
+import { moneyFormat } from '@/utils/moneyFormat'
+
+import * as S from './styles'
 
 const Header = () => {
   const router = useRouter()

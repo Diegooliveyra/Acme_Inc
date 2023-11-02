@@ -1,7 +1,9 @@
 import { useContext } from 'react'
-import CardProductFlat from '../CardProductFlat'
-import { ProductsContext } from '@/contexts/products'
 import { useRouter } from 'next/navigation'
+
+import { ProductsContext } from '@/contexts/products'
+import CardProductFlat from '../CardProductFlat'
+
 import * as S from './styles'
 
 const Favorites = () => {

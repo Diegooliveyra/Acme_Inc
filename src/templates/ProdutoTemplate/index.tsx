@@ -1,19 +1,22 @@
 'use client'
 
 import { useContext, useEffect, useState } from 'react'
+
 import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
+import { ReactSVG } from 'react-svg'
 import Image from 'next/image'
 
 import { ProductsContext } from '@/contexts/products'
 import { LoginContext } from '@/contexts/login'
+import { CartContext } from '@/contexts/cart'
 
 import { moneyFormat } from '@/utils/moneyFormat'
 import { IProductoDTO } from '@/types/product'
 
-import { ReactSVG } from 'react-svg'
-import * as S from './styles'
 import Button from '@/components/Button'
-import { CartContext } from '@/contexts/cart'
+
+import * as S from './styles'
 
 type ProdutoTemplateProps = {
   id: number
@@ -24,7 +27,8 @@ const ProdutoTemplate = ({ id }: ProdutoTemplateProps) => {
   const [product, setProduct] = useState<IProductoDTO>({} as IProductoDTO)
   const [isFavorite, setIsFavorite] = useState<boolean>(false)
   const [quantity, setQuantity] = useState(1)
-  const { contextProducts, favoritesProducts, setFavoritesProducts } = useContext(ProductsContext)
+  const { contextProducts, favoritesProducts, setFavoritesProducts, setShowCart } =
+    useContext(ProductsContext)
   const { login } = useContext(LoginContext)
   const { addProductToCart } = useContext(CartContext)
 
@@ -38,6 +42,8 @@ const ProdutoTemplate = ({ id }: ProdutoTemplateProps) => {
 
   const handleAddToCartClick = () => {
     addProductToCart({ ...product, quantity })
+    setShowCart(true)
+    toast(`Adicionado ${quantity} ${quantity > 1 ? 'itens' : 'item'} ao carrinho`)
   }
 
   useEffect(() => {
@@ -87,7 +93,6 @@ const ProdutoTemplate = ({ id }: ProdutoTemplateProps) => {
                 isFavorite={favoritesProducts.some((p) => p.id === product.id)}
                 onClick={(e) => {
                   e.stopPropagation()
-
                   handleFavorite(!isFavorite)
                   setIsFavorite(!isFavorite)
                 }}
@@ -100,6 +105,7 @@ const ProdutoTemplate = ({ id }: ProdutoTemplateProps) => {
 
             <S.ProductPrice>
               <h2>{moneyFormat(product.value)}</h2>
+              {quantity > 1 && <span>Total: {moneyFormat(product.value * quantity)} </span>}
             </S.ProductPrice>
 
             <S.AmountProducts>

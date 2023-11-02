@@ -1,13 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 
+import { useContext, useEffect, useState } from 'react'
+
+import { ReactSVG } from 'react-svg'
 import Image from 'next/image'
-import * as S from './styles'
 
 import { moneyFormat } from '@/utils/moneyFormat'
-import { ReactSVG } from 'react-svg'
-import { useContext, useEffect, useState } from 'react'
 import { LoginContext } from '@/contexts/login'
+
+import * as S from './styles'
 
 export type CardProps = {
   id?: number

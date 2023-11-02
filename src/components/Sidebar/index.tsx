@@ -1,9 +1,8 @@
 'use client'
 
+import { ReactNode } from 'react'
 import { ReactSVG } from 'react-svg'
 import * as S from './styles'
-
-import { ReactNode, useState } from 'react'
 
 type SidebarProps = {
   children: ReactNode

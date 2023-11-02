@@ -1,7 +1,7 @@
 'use client'
 
 import { IProductoDTO } from '@/types/product'
-import { ReactNode, createContext, use, useEffect, useMemo, useState } from 'react'
+import { ReactNode, createContext, useEffect, useMemo, useState } from 'react'
 
 export interface CartProduct extends IProductoDTO {
   quantity: number

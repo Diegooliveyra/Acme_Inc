@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -20,15 +20,18 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
   }
 
-  html, body, #__next {
-    height: 100%;
-  }
+ 
 
 
   body {
     background-color: #000;
     color: #FFF
   }
-`;
 
-export default GlobalStyles;
+  .toastBody {
+  
+  font-size: 26px !important;
+}
+`
+
+export default GlobalStyles

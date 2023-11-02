@@ -1,9 +1,12 @@
-import { useContext, useState } from 'react'
-import CardProductFlat from '../CardProductFlat'
-import * as S from './styles'
-import { CartContext } from '@/contexts/cart'
+import { useContext } from 'react'
 import { useRouter } from 'next/navigation'
+
+import CardProductFlat from '../CardProductFlat'
+
 import { ProductsContext } from '@/contexts/products'
+import { CartContext } from '@/contexts/cart'
+
+import * as S from './styles'
 
 const Cart = () => {
   const router = useRouter()

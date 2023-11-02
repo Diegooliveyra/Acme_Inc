@@ -21,6 +21,7 @@ export const Container = styled.main`
     max-width: ${theme.grid.container};
     margin: 0 auto;
     animation: ${toRight} 0.4s ease-in-out;
+    padding-top: 8rem;
   `}
 `
 

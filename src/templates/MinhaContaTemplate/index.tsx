@@ -1,13 +1,17 @@
 'use client'
 
-import useLocalStorage from '@/hooks/useLocalStorage'
-import * as S from './styles'
 import { useContext, useEffect, useState } from 'react'
-import { User } from '@/types/user'
-import Button from '@/components/Button'
-import { LoginContext } from '@/contexts/login'
-import { ProductsContext } from '@/contexts/products'
 import { useRouter } from 'next/navigation'
+
+import useLocalStorage from '@/hooks/useLocalStorage'
+import { User } from '@/types/user'
+
+import Button from '@/components/Button'
+
+import { ProductsContext } from '@/contexts/products'
+import { LoginContext } from '@/contexts/login'
+
+import * as S from './styles'
 
 const MinhaContaTemplate = () => {
   const router = useRouter()

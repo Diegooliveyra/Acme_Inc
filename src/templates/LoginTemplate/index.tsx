@@ -1,14 +1,19 @@
 'use client'
 
 import { useContext, useState } from 'react'
-import useLocalStorage from '@/hooks/useLocalStorage'
 import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
+
+import useLocalStorage from '@/hooks/useLocalStorage'
+
 import Button from '@/components/Button'
 import Input from '@/components/Input'
+
 import { User } from '@/types/user'
-import * as S from './styles'
+
 import { LoginContext } from '@/contexts/login'
-import { toast } from 'react-toastify'
+
+import * as S from './styles'
 
 const LoginTemplate = () => {
   const router = useRouter()

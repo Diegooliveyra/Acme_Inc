@@ -27,7 +27,7 @@ const HomeTemplate = ({ products }: HomeTemplateProps) => {
     useContext(ProductsContext)
 
   useEffect(() => {
-    if (!contextProducts?.length) setProducts(products)
+    setProducts(products)
   }, [products])
 
   const handleSearch = (value: string, show: boolean) => {
