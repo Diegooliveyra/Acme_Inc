@@ -5,6 +5,7 @@ import GlobalStyles from '@/styles/GlobalStyles'
 import Header from '@/components/Header'
 import ProductsProvider from '@/contexts/products'
 import LoginProvider from '@/contexts/login'
+import CartProvider from '@/contexts/cart'
 
 const inter = Poppins({
   subsets: ['latin'],
@@ -21,13 +22,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={inter.className}>
         <ProductsProvider>
-          <LoginProvider>
-            <StyledComponentsRegistry>
-              <GlobalStyles />
-              <Header />
-              {children}
-            </StyledComponentsRegistry>
-          </LoginProvider>
+          <CartProvider>
+            <LoginProvider>
+              <StyledComponentsRegistry>
+                <GlobalStyles />
+                <Header />
+                {children}
+              </StyledComponentsRegistry>
+            </LoginProvider>
+          </CartProvider>
         </ProductsProvider>
       </body>
     </html>

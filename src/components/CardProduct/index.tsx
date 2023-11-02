@@ -6,7 +6,7 @@ import * as S from './styles'
 
 import { moneyFormat } from '@/utils/moneyFormat'
 import { ReactSVG } from 'react-svg'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { LoginContext } from '@/contexts/login'
 
 export type CardProps = {
@@ -20,8 +20,12 @@ export type CardProps = {
 }
 
 const CardProduct = ({ title, url_image, value, handleFavorite, onClick, favorite }: CardProps) => {
-  const [isFavorite, setIsFavorite] = useState<boolean>(favorite)
+  const [isFavorite, setIsFavorite] = useState<boolean>()
   const { login, setLogin } = useContext(LoginContext)
+
+  useEffect(() => {
+    setIsFavorite(favorite)
+  }, [favorite])
 
   return (
     <S.Container onClick={onClick}>

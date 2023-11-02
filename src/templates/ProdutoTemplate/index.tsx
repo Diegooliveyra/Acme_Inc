@@ -1,22 +1,29 @@
-'use client';
+'use client'
 
-import { useContext, useEffect, useState } from 'react';
-import { ProductsContext } from '@/contexts/products';
-import { IProductoDTO } from '@/types/product';
-import { useRouter } from 'next/navigation';
-import * as S from './styles';
-import Image from 'next/image';
-import { ReactSVG } from 'react-svg';
-import { moneyFormat } from '@/utils/moneyFormat';
+import { useContext, useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+
+import { ProductsContext } from '@/contexts/products'
+import { LoginContext } from '@/contexts/login'
+
+import { moneyFormat } from '@/utils/moneyFormat'
+import { IProductoDTO } from '@/types/product'
+
+import { ReactSVG } from 'react-svg'
+import * as S from './styles'
+import Button from '@/components/Button'
 
 type ProdutoTemplateProps = {
-  id: number;
-};
+  id: number
+}
 
 const ProdutoTemplate = ({ id }: ProdutoTemplateProps) => {
-  const router = useRouter();
-  const [product, setProduct] = useState<IProductoDTO>();
-  const { contextProducts } = useContext(ProductsContext);
+  const router = useRouter()
+  const [product, setProduct] = useState<IProductoDTO>({} as IProductoDTO)
+  const [isFavorite, setIsFavorite] = useState<boolean>(false)
+  const { contextProducts, favoritesProducts, setFavoritesProducts } = useContext(ProductsContext)
+  const { login } = useContext(LoginContext)
 
   useEffect(() => {
     const productFilterd = contextProducts.reduce((acc, product) => {
@@ -24,44 +31,55 @@ const ProdutoTemplate = ({ id }: ProdutoTemplateProps) => {
         return {
           ...acc,
           ...product,
-        };
+        }
       }
-      return acc;
-    }, {});
+      return acc
+    }, {})
 
     if (productFilterd && Object.keys(productFilterd).length === 0) {
-      router.push('/');
+      router.push('/')
     }
 
-    setProduct(productFilterd as IProductoDTO);
+    setProduct(productFilterd as IProductoDTO)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contextProducts, id]);
+  }, [contextProducts, id])
+
+  useEffect(() => {
+    setIsFavorite(favoritesProducts.some((p) => p.id === product.id))
+  }, [favoritesProducts, product])
+
+  const handleFavorite = (checked: boolean) => {
+    const productsFavorites = [...favoritesProducts]
+
+    if (checked) {
+      productsFavorites.push(product)
+      setFavoritesProducts(productsFavorites)
+    } else {
+      setFavoritesProducts(productsFavorites.filter((pr) => pr.id !== product.id))
+    }
+  }
 
   return (
     <S.Container>
       {product ? (
         <>
           <S.ImageContainer>
-            <Image
-              src={product?.url_image}
-              alt={product?.title}
-              fill
-              objectFit="cover"
-            />
+            <Image src={product?.url_image} alt={product?.title} fill objectFit="cover" />
           </S.ImageContainer>
           <S.InfoContainer>
-            <S.FavoriteButton
-              isFavorite={true}
-              onClick={(e) => {
-                console.log(e);
-              }}
-            >
-              <ReactSVG
-                src={'/assets/icons/heart.svg'}
-                role={'Icon'}
-                wrapper="span"
-              />
-            </S.FavoriteButton>
+            {login?.isLogged ? (
+              <S.FavoriteButton
+                isFavorite={favoritesProducts.some((p) => p.id === product.id)}
+                onClick={(e) => {
+                  e.stopPropagation()
+
+                  handleFavorite(!isFavorite)
+                  setIsFavorite(!isFavorite)
+                }}
+              >
+                <ReactSVG src={'/assets/icons/heart.svg'} role={'Icon'} wrapper="span" />
+              </S.FavoriteButton>
+            ) : null}
             <S.Title>{product.title}</S.Title>
             <p>Disponível em estoque </p>
 
@@ -80,12 +98,12 @@ const ProdutoTemplate = ({ id }: ProdutoTemplateProps) => {
               <p>{product.description}</p>
             </S.DescriptionProduct>
 
-            <S.Button>Adcionar ao carrinho</S.Button>
+            <Button>Adcionar ao carrinho</Button>
           </S.InfoContainer>
         </>
       ) : null}
     </S.Container>
-  );
-};
+  )
+}
 
-export default ProdutoTemplate;
+export default ProdutoTemplate

@@ -81,7 +81,7 @@ const HomeTemplate = ({ products }: HomeTemplateProps) => {
         <S.CardWrapper>
           {contextProducts?.map((product) => (
             <CardProduct
-              favorite={favoritesProducts.includes(product)}
+              favorite={favoritesProducts.some((p) => p.id === product.id)}
               key={product.title}
               title={product.title}
               url_image={product.url_image}

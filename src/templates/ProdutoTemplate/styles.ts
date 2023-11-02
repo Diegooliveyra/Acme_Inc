@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import styled, { css, keyframes } from 'styled-components';
-import theme from '@/styles/theme';
+import styled, { css, keyframes } from 'styled-components'
+import theme from '@/styles/theme'
 
 const toRight = keyframes`
   from {
@@ -13,7 +13,7 @@ const toRight = keyframes`
     transform: translateX(0);
 
   }
-  `;
+  `
 
 export const Container = styled.main`
   ${() => css`
@@ -21,29 +21,32 @@ export const Container = styled.main`
     gap: ${theme.spacings.medium};
     max-width: ${theme.grid.container};
     margin: ${theme.spacings.large} auto;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
 
     animation: ${toRight} 0.4s ease-in-out;
-    flex-wrap: wrap;
+
+    @media (max-width: 1000px) {
+      grid-template-columns: 1fr;
+
+      img {
+        position: static !important;
+      }
+    }
   `}
-`;
+`
 
 export const ImageContainer = styled.div`
   ${() => css`
-    flex: 1;
-
     border: 1px solid ${theme.colors.gray.medium};
     border-radius: ${theme.border.radius};
-    overflow: hidden;
+    /* overflow: hidden; */
     position: relative;
   `}
-`;
+`
 
 export const InfoContainer = styled.div`
   ${() => css`
-    flex: 1;
-    max-width: 600px;
     padding: ${theme.spacings.medium};
     background-color: ${theme.colors.black.light};
     border-radius: ${theme.border.radius};
@@ -57,18 +60,18 @@ export const InfoContainer = styled.div`
       color: ${theme.colors.purple.light};
     }
   `}
-`;
+`
 
 export const Title = styled.h1`
   ${() => css`
     font-size: ${theme.font.sizes.h1};
     font-weight: ${theme.font.normal};
   `}
-`;
+`
 
 type FavoriteButtonProps = {
-  isFavorite: boolean;
-};
+  isFavorite: boolean
+}
 
 export const FavoriteButton = styled.div<FavoriteButtonProps>`
   ${({ isFavorite }) => css`
@@ -91,7 +94,7 @@ export const FavoriteButton = styled.div<FavoriteButtonProps>`
       }
     }
   `}
-`;
+`
 
 export const ProductPrice = styled.div`
   ${() => css`
@@ -101,7 +104,7 @@ export const ProductPrice = styled.div`
       font-weight: ${theme.font.semiBold};
     }
   `}
-`;
+`
 
 export const AmountProducts = styled.div`
   ${() => css`
@@ -129,14 +132,14 @@ export const AmountProducts = styled.div`
       height: 50px;
     }
   `}
-`;
+`
 
 export const DescriptionProduct = styled.div`
   ${() => css`
     display: flex;
     flex-direction: column;
-
     gap: ${theme.spacings.xsmall};
+    margin-bottom: ${theme.spacings.xsmall};
     margin-top: ${theme.spacings.medium};
 
     h2 {
@@ -151,21 +154,4 @@ export const DescriptionProduct = styled.div`
       color: ${theme.colors.gray.medium};
     }
   `}
-`;
-
-export const Button = styled.button`
-  ${() => css`
-    margin-top: ${theme.spacings.xsmall};
-    cursor: pointer;
-    font-size: ${theme.font.sizes.h2};
-    background-color: ${theme.colors.purple.light};
-    color: ${theme.colors.white};
-    border: 1px solid ${theme.colors.gray.dark};
-    border-radius: ${theme.border.radius};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: ${theme.spacings.xsmall};
-  `}
-`;
+`
